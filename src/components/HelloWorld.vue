@@ -33,10 +33,31 @@
 </template>
 
 <script>
+import Auth from '@aws-amplify/auth'
+const awsExports = require('@/aws-exports').default
+Auth.configure(awsExports)
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  created () {
+    this.checkLogin()
+  },
+  mounted () {
+  },
+  methods: {
+    checkLogin () {
+      Auth.currentSession()
+        .then(async function (data) {
+          console.log(data)
+          // const user = await Auth.currentAuthenticatedUser({ bypassCache: true })
+          // console.log(user)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 }
 </script>
