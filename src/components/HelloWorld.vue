@@ -1,6 +1,9 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h2>{{ userName }}</h2>
+    <h2>{{ userEmail }}</h2>
+    <button @click="logout()">ログアウト</button>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -41,22 +44,32 @@ export default {
   props: {
     msg: String
   },
+  data: () => ({
+    userName: '',
+    userEmail: ''
+  }),
   created () {
     this.checkLogin()
   },
   mounted () {
   },
   methods: {
-    checkLogin () {
-      Auth.currentSession()
-        .then(async function (data) {
-          console.log(data)
-          // const user = await Auth.currentAuthenticatedUser({ bypassCache: true })
-          // console.log(user)
-        })
+    async checkLogin () {
+      try {
+        const sessionData = await Auth.currentSession()
+        const { name, email } = sessionData.getIdToken().payload
+        this.userName = name
+        this.userEmail = email
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    logout () {
+      Auth.signOut()
         .catch(err => {
           console.log(err)
         })
+      this.checkLogin()
     }
   }
 }

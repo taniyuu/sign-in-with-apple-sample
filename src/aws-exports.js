@@ -4,14 +4,13 @@ const config = {
   Auth: {
     identityPoolId: process.env.VUE_APP_IDENTITY_POOL_ID,
     region: process.env.VUE_APP_REGION,
-    // identityPoolRegion: process.env.VUE_APP_IDENTITY_REGION,
     userPoolId: process.env.VUE_APP_USERPOOL_ID,
     userPoolWebClientId: process.env.VUE_APP_USERPOOL_CLIENT_ID,
     oauth: {
       domain: process.env.VUE_APP_COGNITO_DOMAIN,
       scope: ['profile', 'openid', 'aws.cognito.signin.user.admin', 'email'],
-      redirectSignIn: 'http://localhost:8080',
-      redirectSignOut: 'http://localhost:8080',
+      redirectSignIn: 'http://localhost:8080/callback',
+      redirectSignOut: 'http://localhost:8080/login',
       responseType: 'code'
     }
   }
