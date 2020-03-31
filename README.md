@@ -1,4 +1,4 @@
-# sign-in-with-apple-web-sample
+# sign-in-with-apple-sample
 
 ## Project setup
 ```
